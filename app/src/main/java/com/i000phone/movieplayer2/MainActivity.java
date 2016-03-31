@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState==null) {
             ImageFragment fragment = new ImageFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.container,fragment).commit();
+            transaction.add(R.id.container_title,fragment).commit();
         }
     }
 }

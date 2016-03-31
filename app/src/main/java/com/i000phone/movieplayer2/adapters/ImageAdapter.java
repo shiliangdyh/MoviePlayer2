@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 
 import com.i000phone.movieplayer2.R;
@@ -51,10 +52,10 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView==null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_layout,parent,false);
             ViewHolder viewHolder = new ViewHolder();
-            viewHolder.imageView = (MyImageView) convertView.findViewById(R.id.item_img);
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.item_img);
             Resources resources = context.getResources();
-            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.mipmap.loading);
-            Bitmap failure = BitmapFactory.decodeResource(resources, R.mipmap.failure);
+            Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.loading);
+            Bitmap failure = BitmapFactory.decodeResource(resources, R.drawable.failure);
             viewHolder.imageView.setImageDrawable(new NetWorkDrawable(resources,bitmap,bitmap));
             convertView.setTag(viewHolder);
         }
@@ -62,12 +63,13 @@ public class ImageAdapter extends BaseAdapter {
         String backdrop_path = simpleMovie.getBackdrop_path();
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         String imageUrl = PathUtil.getImageUrl(PathUtil.W185, backdrop_path);
+        System.out.println(imageUrl);
         NetWorkDrawable drawable = (NetWorkDrawable) viewHolder.imageView.getDrawable();
         drawable.setImageUrl(imageUrl);
         return convertView;
     }
     class ViewHolder{
-        MyImageView imageView;
+        ImageView imageView;
     }
     public void addAll(Collection<? extends AllSimpleMovies.SimpleMovie> collection){
         list.addAll(collection);

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.i000phone.movieplayer2.R;
 import com.i000phone.movieplayer2.entities.AllSimpleMovies;
@@ -50,15 +51,16 @@ public class ImageAdapter1 extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView==null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_layout,parent,false);
-            ViewHolder viewHolder = new ViewHolder();
-            viewHolder.imageView = (MyImageView) convertView.findViewById(R.id.item_img);
-            convertView.setTag(viewHolder);
+//            ViewHolder viewHolder = new ViewHolder();
+//            viewHolder.imageView = (MyImageView) convertView.findViewById(R.id.item_img);
+//            convertView.setTag(viewHolder);
         }
         AllSimpleMovies.SimpleMovie simpleMovie = list.get(position);
         String backdrop_path = simpleMovie.getBackdrop_path();
-        ViewHolder viewHolder = (ViewHolder) convertView.getTag();
+//        ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         String imageUrl = PathUtil.getImageUrl(PathUtil.W185, backdrop_path);
-        Picasso.with(context).load(imageUrl).into(viewHolder.imageView);
+        System.out.println(imageUrl+":"+list.size());
+        Picasso.with(context).load(imageUrl).into((ImageView) convertView.findViewById(R.id.item_img));
         return convertView;
     }
     class ViewHolder{

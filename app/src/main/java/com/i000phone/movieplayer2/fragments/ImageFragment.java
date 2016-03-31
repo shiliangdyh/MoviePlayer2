@@ -1,16 +1,20 @@
 package com.i000phone.movieplayer2.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.i000phone.movieplayer2.DetailActivity;
 import com.i000phone.movieplayer2.R;
 import com.i000phone.movieplayer2.adapters.ImageAdapter;
+import com.i000phone.movieplayer2.adapters.ImageAdapter1;
 import com.i000phone.movieplayer2.entities.AllSimpleMovies;
 import com.i000phone.movieplayer2.utils.HttpTask;
 import com.i000phone.movieplayer2.utils.PathUtil;
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ImageFragment extends Fragment implements HttpTask.Callback<AllSimpleMovies> {
+public class ImageFragment extends Fragment implements HttpTask.Callback<AllSimpleMovies>, AdapterView.OnItemClickListener {
 
 
     private GridView gridView;
@@ -45,6 +49,7 @@ public class ImageFragment extends Fragment implements HttpTask.Callback<AllSimp
         gridView.setAdapter(adapter);
         HttpTask<AllSimpleMovies> task = new HttpTask<>(AllSimpleMovies.class, this);
         task.execute(PathUtil.getMoviesInfoUrl(1,"zh"));
+        gridView.setOnItemClickListener(this);
     }
 
     @Override
@@ -55,5 +60,12 @@ public class ImageFragment extends Fragment implements HttpTask.Callback<AllSimp
     @Override
     public void doFailure(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }
